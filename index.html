@@ -36,8 +36,15 @@ if (token) {
 const email = sessionStorage.getItem("user");
 
 if (email) {
-  app.innerHTML = '<div class="ok">Logged in as <strong></strong></div><p><button id="out">Log out</button></p>';
-  app.querySelector("strong").textContent = email;
+  const username = email.split("@")[0];
+  app.innerHTML =
+    '<div class="ok">' +
+    '<h2>&#10004; Login successful</h2>' +
+    '<p>Welcome, <strong id="u"></strong></p>' +
+    '<p>Email: <span id="e"></span></p>' +
+    '</div><p><button id="out">Log out</button></p>';
+  document.getElementById("u").textContent = username;
+  document.getElementById("e").textContent = email;
   document.getElementById("out").onclick = () => {
     sessionStorage.removeItem("user");
     location.reload();
