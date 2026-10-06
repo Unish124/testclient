@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Test Client</title>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 480px; margin: 60px auto; padding: 0 16px; text-align: center; }
+  button { padding: 10px 20px; font-size: 16px; cursor: pointer; }
+  .ok { background: #e6f6ea; border: 1px solid #2e9e4f; padding: 14px; border-radius: 6px; }
+</style>
+</head>
+<body>
+  <h1>Test Client</h1>
+  <div id="app"></div>
+
+<script>
+// - Change these two lines for each client -
+const PLATFORM = "https://login.unish.info.np";
+const SLUG = "test";
+
+
+const app = document.getElementById("app");
+
+const token = new URLSearchParams(location.search).get("token");
+
+if (token) {
+ .
+  const payload = JSON.parse(atob(token.split(".")[1].replace(/-/g, "+").replace(/_/g, "/")));
+  sessionStorage.setItem("user", payload.email);
+  history.replaceState(null, "", location.pathname); 
+}
+
+const email = sessionStorage.getItem("user");
+
+if (email) {
+  app.innerHTML = '<div class="ok">Logged in as <strong></strong></div><p><button id="out">Log out</button></p>';
+  app.querySelector("strong").textContent = email;
+  document.getElementById("out").onclick = () => {
+    sessionStorage.removeItem("user");
+    location.reload();
+  };
+} else {
+  app.innerHTML = '<p>You are not logged in.</p><button id="in">Log in</button>';
+  document.getElementById("in").onclick = () => {
+    location.href = PLATFORM + "/t/" + SLUG + "/login";
+  };
+}
+</script>
+</body>
+</html>
