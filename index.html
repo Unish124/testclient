@@ -15,20 +15,22 @@
   <div id="app"></div>
 
 <script>
-// - Change these two lines for each client -
+// ---- Change these two lines for each client ----
 const PLATFORM = "https://login.unish.info.np";
 const SLUG = "test";
-
+// -------------------------------------------------
 
 const app = document.getElementById("app");
 
+// The platform sends the user back here with ?token=...
 const token = new URLSearchParams(location.search).get("token");
 
 if (token) {
- .
+  // Read the user's details from the token.
+  // NOTE: this only reads the token. A real client must verify it on a server.
   const payload = JSON.parse(atob(token.split(".")[1].replace(/-/g, "+").replace(/_/g, "/")));
   sessionStorage.setItem("user", payload.email);
-  history.replaceState(null, "", location.pathname); 
+  history.replaceState(null, "", location.pathname); // hide the token from the address bar
 }
 
 const email = sessionStorage.getItem("user");
